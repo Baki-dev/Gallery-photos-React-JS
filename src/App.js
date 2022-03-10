@@ -1,9 +1,41 @@
 import React from 'react';
+import { useState } from "react";
+import { useEffect } from 'react/cjs/react.production.min';
 import styled from "styled-components";
 import search from './img/search.svg';
 
+const accessKey = `?client_id=${process.env.REACT_APP_ACCESS_KEY}`;
+
+const baseLink = `https://api.unsplash.com/photos/`;
+const searchLink = `https://api.unsplash.com/search/photos`;
+
+
 
 function App() {
+
+
+    const [photos, setPhotos] = useState([])
+
+    const getImages = async () =>{
+        let url;
+        url = `${baseLink}${accessKey}`
+
+        try{
+            const res = await fetch(url)
+
+            const data = res.json().then((allPhotos) => setPhotos(allPhotos) )
+          
+        }   catch (error) {
+
+        }
+    }
+
+
+    useEffect(() =>{
+        getImages()
+    },[])
+
+
 
     //HTML
     const FormRender = () =>{
